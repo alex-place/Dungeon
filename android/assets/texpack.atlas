@@ -1,0 +1,20 @@
+
+texpack.png
+size: 256,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+gradient
+  rotate: false
+  xy: 2, 20
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+nakedhero
+  rotate: false
+  xy: 2, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
