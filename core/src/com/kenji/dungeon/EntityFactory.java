@@ -4,6 +4,8 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
 import com.kenji.dungeon.components.MovementComponent;
 import com.kenji.dungeon.components.ParticleComponent;
 import com.kenji.dungeon.components.PositionComponent;
@@ -15,6 +17,15 @@ public class EntityFactory {
 	}
 
 	public static EntityFactory instance = new EntityFactory();
+	
+	
+	private ParticleEffectPool fire;
+	
+	public void init(){
+		ParticleEffect effect = new ParticleEffect();
+		effect.load(Gdx.files.internal("fire.p"), Gdx.files.internal(""));
+		fire = new ParticleEffectPool(effect, 2, 10);
+	}
 
 	private Entity createEntity() {
 		return Manager.instance.getEngine().createEntity();
@@ -61,10 +72,12 @@ public class EntityFactory {
 		pos.setHeight(1);
 
 		ParticleComponent par = createComponent(ParticleComponent.class);
-//		par.setEffect(Assets.instance.particles.fire);
-		ParticleEffect effect = new ParticleEffect();
-		effect.load(Gdx.files.internal("fire.p"), Assets.instance.getAtlas());
-		return createEntity(pos);
+		PooledEffect effect = fire.obtain();
+		effect.setPosition(x, y);
+		effect.start();
+		par.setEffect(effect);
+		
+		return createEntity(pos, par);
 	}
 
 }

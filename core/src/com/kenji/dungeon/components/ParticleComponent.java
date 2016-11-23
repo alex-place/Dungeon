@@ -1,17 +1,17 @@
 package com.kenji.dungeon.components;
 
 import com.badlogic.ashley.core.Component;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
 
 public class ParticleComponent implements Component{
 
-	private ParticleEffect effect;
+	private PooledEffect effect;
 
-	public ParticleEffect getEffect() {
+	public PooledEffect getEffect() {
 		return effect;
 	}
 
-	public void setEffect(ParticleEffect effect) {
+	public void setEffect(PooledEffect effect) {
 		this.effect = effect;
 	}
 

@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -18,6 +17,7 @@ import com.kenji.dungeon.input.MainDungeonInput;
 import com.kenji.dungeon.input.SimpleDirectionGestureDetector;
 import com.kenji.dungeon.input.SimpleDirectionListener;
 import com.kenji.dungeon.systems.MovementSystem;
+import com.kenji.dungeon.systems.ParticleSystem;
 import com.kenji.dungeon.systems.RenderingSystem;
 
 public class MainDungeonScreen extends BaseScreen {
@@ -31,9 +31,6 @@ public class MainDungeonScreen extends BaseScreen {
 	private BitmapFont font;
 	private TiledMap tiledMap;
 	private OrthogonalTiledMapRenderer tiledMapRenderer;
-	private MainDungeonInput input;
-
-	private ParticleEffect effect;
 
 	@Override
 	public void show() {
@@ -44,16 +41,17 @@ public class MainDungeonScreen extends BaseScreen {
 		camera.update();
 		tiledMap = (TiledMap) Assets.instance.getAsset(Constants.FIRST_DUNGEON);
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1 / 16f, batch);
+
 		Manager.instance.init();
+		EntityFactory.instance.init();
 		Manager.instance.getEngine().addSystem(new RenderingSystem(batch));
 		Manager.instance.getEngine().addSystem(new MovementSystem());
+		Manager.instance.getEngine().addSystem(new ParticleSystem(batch));
+
 		Entity nakedMan = EntityFactory.instance.createNakedMan(1, 1);
 		Manager.instance.getEngine().addEntity(nakedMan);
-
-		effect = new ParticleEffect();
-		effect.load(Gdx.files.internal("fire.p"), Gdx.files.internal(""));
-		effect.setPosition(2,2);
-		effect.start();
+		Entity fire = EntityFactory.instance.createLight(2.25f, 0.5f);
+		Manager.instance.getEngine().addEntity(fire);
 
 		MainDungeonInput input = new MainDungeonInput();
 		SimpleDirectionGestureDetector detector = new SimpleDirectionGestureDetector(
@@ -74,9 +72,6 @@ public class MainDungeonScreen extends BaseScreen {
 
 		batch.begin();
 		Manager.instance.getEngine().update(delta);
-		effect.draw(batch, delta);
-
-		font.draw(batch, "Hello World", 200, 200);
 		batch.end();
 	}
 
@@ -102,6 +97,10 @@ public class MainDungeonScreen extends BaseScreen {
 
 	@Override
 	public void dispose() {
+		batch.dispose();
+		tiledMap.dispose();
+		tiledMapRenderer.dispose();
+		font.dispose();
 
 	}
 

@@ -2,16 +2,16 @@ Untitled
 - Delay -
 active: false
 - Duration - 
-lowMin: 3000.0
-lowMax: 3000.0
+lowMin: 2000.0
+lowMax: 2000.0
 - Count - 
 min: 0
-max: 200
+max: 50
 - Emission - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 100.0
-highMax: 100.0
+highMin: 20.0
+highMax: 20.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -62,8 +62,8 @@ timeline0: 0.0
 - Scale - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 0.75
-highMax: 0.75
+highMin: 0.25
+highMax: 0.25
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -73,15 +73,15 @@ timeline0: 0.0
 active: true
 lowMin: 0.0
 lowMax: 0.0
-highMin: 1.0
-highMax: 2.0
+highMin: 0.25
+highMax: 0.5
 relative: false
 scalingCount: 2
-scaling0: 1.0
-scaling1: 0.7058824
+scaling0: 0.1741573
+scaling1: 1.0
 timelineCount: 2
 timeline0: 0.0
-timeline1: 0.9931507
+timeline1: 0.5030377
 - Angle - 
 active: true
 lowMin: 90.0
@@ -105,9 +105,9 @@ active: false
 active: false
 - Tint - 
 colorsCount: 3
-colors0: 1.0
-colors1: 0.12156863
-colors2: 0.047058824
+colors0: 0.5058824
+colors1: 0.11764706
+colors2: 0.023529412
 timelineCount: 1
 timeline0: 0.0
 - Transparency - 
@@ -116,22 +116,20 @@ lowMax: 0.0
 highMin: 1.0
 highMax: 1.0
 relative: false
-scalingCount: 4
-scaling0: 0.0
+scalingCount: 3
+scaling0: 1.0
 scaling1: 1.0
-scaling2: 0.75
-scaling3: 0.0
-timelineCount: 4
+scaling2: 1.0
+timelineCount: 3
 timeline0: 0.0
-timeline1: 0.2
-timeline2: 0.8
-timeline3: 1.0
+timeline1: 0.77397263
+timeline2: 1.0
 - Options - 
 attached: false
 continuous: true
 aligned: false
 additive: true
 behind: false
-premultipliedAlpha: false
+premultipliedAlpha: true
 - Image Path -
 gradient.png

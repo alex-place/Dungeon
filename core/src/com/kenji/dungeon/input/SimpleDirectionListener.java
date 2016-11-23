@@ -27,23 +27,26 @@ public class SimpleDirectionListener implements DirectionListener {
 
 	@Override
 	public void onLeft() {
-		vel.setX(1);
+		vel.setX(-1);
 		vel.setY(0);
 	}
 
 	@Override
 	public void onRight() {
-
+		vel.setX(1);
+		vel.setY(0);
 	}
 
 	@Override
 	public void onUp() {
-
+		vel.setX(0);
+		vel.setY(1);
 	}
 
 	@Override
 	public void onDown() {
-
+		vel.setX(0);
+		vel.setY(-1);
 	}
 
 }

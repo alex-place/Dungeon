@@ -37,4 +37,17 @@ public class RenderingSystem extends SortedIteratingSystem {
 			return (int) Math.signum(pm.get(e1).getZ() - pm.get(e2).getZ());
 		}
 	}
+
+	@Override
+	public void update(float deltaTime) {
+		preproccess();
+		super.update(deltaTime);
+		postproccess();
+	}
+
+	private void postproccess() {
+	}
+
+	private void preproccess() {
+	}
 }
