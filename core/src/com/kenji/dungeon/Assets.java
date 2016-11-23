@@ -19,7 +19,6 @@ public class Assets {
 	public static Assets instance = new Assets();
 
 	public AssetNakedMan nakedMan;
-	public AssetParticle particles;
 
 	public boolean loaded = false;
 
@@ -31,18 +30,11 @@ public class Assets {
 		manager.setLoader(TiledMap.class, new TmxMapLoader());
 		manager.load(Constants.FIRST_DUNGEON, TiledMap.class);
 		manager.load(Constants.SPRITE_ATLAS, TextureAtlas.class);
-		ParticleEffectLoader parLoader = new ParticleEffectLoader(new InternalFileHandleResolver());
-		manager.setLoader(ParticleEffect.class, parLoader);
-		ParticleEffectParameter parParam = new ParticleEffectParameter();
-		
-		parLoader.load(manager, Constants.PARTICLE_FIRE, Gdx.files.internal(""), parParam);
-//		manager.load(Constants.PARTICLE_FIRE, ParticleEffect.class);
 	}
 
 	public void create() {
 		atlas = manager.get(Constants.SPRITE_ATLAS);
 		nakedMan = new AssetNakedMan(atlas);
-		particles = new AssetParticle(atlas);
 		loaded = true;
 	}
 
@@ -60,7 +52,7 @@ public class Assets {
 		}
 		return null;
 	}
-	
+
 	public TextureAtlas getAtlas() {
 		return atlas;
 	}
@@ -70,16 +62,6 @@ public class Assets {
 
 		public AssetNakedMan(TextureAtlas atlas) {
 			reg = atlas.findRegion("nakedhero");
-		}
-	}
-
-	public static class AssetParticle {
-		private AtlasRegion gradient;
-		public ParticleEffect fire;
-
-		public AssetParticle(TextureAtlas atlas) {
-			gradient = atlas.findRegion("gradient");
-			fire = (ParticleEffect) Assets.instance.getAsset(Constants.PARTICLE_FIRE);
 		}
 	}
 

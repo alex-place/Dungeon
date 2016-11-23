@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -32,6 +33,8 @@ public class MainDungeonScreen extends BaseScreen {
 	private OrthogonalTiledMapRenderer tiledMapRenderer;
 	private MainDungeonInput input;
 
+	private ParticleEffect effect;
+
 	@Override
 	public void show() {
 		batch = new SpriteBatch();
@@ -46,9 +49,12 @@ public class MainDungeonScreen extends BaseScreen {
 		Manager.instance.getEngine().addSystem(new MovementSystem());
 		Entity nakedMan = EntityFactory.instance.createNakedMan(1, 1);
 		Manager.instance.getEngine().addEntity(nakedMan);
-		
-		Manager.instance.getEngine().addEntity(EntityFactory.instance.createLight(0, 0));
-		
+
+		effect = new ParticleEffect();
+		effect.load(Gdx.files.internal("fire.p"), Gdx.files.internal(""));
+		effect.setPosition(2,2);
+		effect.start();
+
 		MainDungeonInput input = new MainDungeonInput();
 		SimpleDirectionGestureDetector detector = new SimpleDirectionGestureDetector(
 				new SimpleDirectionListener(nakedMan));
@@ -62,11 +68,13 @@ public class MainDungeonScreen extends BaseScreen {
 		super.render(delta);
 
 		camera.update();
+		batch.setProjectionMatrix(camera.combined);
 		tiledMapRenderer.setView(camera);
 		tiledMapRenderer.render();
 
 		batch.begin();
 		Manager.instance.getEngine().update(delta);
+		effect.draw(batch, delta);
 
 		font.draw(batch, "Hello World", 200, 200);
 		batch.end();
