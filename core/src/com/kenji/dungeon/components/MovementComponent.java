@@ -1,10 +1,12 @@
 package com.kenji.dungeon.components;
 
 import com.badlogic.ashley.core.Component;
+import com.badlogic.gdx.math.Vector2;
 
 public class MovementComponent implements Component {
 
-	private float x, y, elapsed, lifetime;
+	private float x, y;
+	private boolean moving;
 
 	public float getX() {
 		return x;
@@ -21,27 +23,23 @@ public class MovementComponent implements Component {
 	public void setY(float y) {
 		this.y = y;
 	}
-
-	public float getElapsed() {
-		return elapsed;
-	}
-
-	public void setElapsed(float elapsed) {
-		this.elapsed = elapsed;
-	}
-
-	public float getLifetime() {
-		return lifetime;
-	}
-
-	public void setLifetime(float lifetime) {
-		this.lifetime = lifetime;
+	
+	public void set(Vector2 location){
+		setX(location.x);
+		setY(location.y);
 	}
 
 	public void reset() {
 		x = 0;
 		y = 0;
-		elapsed = 0;
+	}
+
+	public boolean isMoving() {
+		return moving;
+	}
+	
+	public void setMoving(boolean moving) {
+		this.moving = moving;
 	}
 
 }

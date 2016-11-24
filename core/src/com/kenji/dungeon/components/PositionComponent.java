@@ -1,6 +1,7 @@
 package com.kenji.dungeon.components;
 
 import com.badlogic.ashley.core.Component;
+import com.badlogic.gdx.math.Vector2;
 
 public class PositionComponent implements Component {
 
@@ -44,6 +45,11 @@ public class PositionComponent implements Component {
 
 	public void setHeight(float height) {
 		this.height = height;
+	}
+
+	public void set(Vector2 pos) {
+		setX(pos.x);
+		setY(pos.y); 
 	}
 
 }

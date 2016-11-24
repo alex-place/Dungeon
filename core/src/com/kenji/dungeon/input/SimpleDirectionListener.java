@@ -16,8 +16,9 @@ public class SimpleDirectionListener implements DirectionListener {
 
 	Interpolation interpol;
 	float newPos;
-	boolean moving = false;
 	private MovementComponent vel;
+	
+	
 
 	public SimpleDirectionListener(Entity entity) {
 		this.entity = entity;
@@ -27,26 +28,49 @@ public class SimpleDirectionListener implements DirectionListener {
 
 	@Override
 	public void onLeft() {
-		vel.setX(-1);
-		vel.setY(0);
+		createMovementComponent();
+		if (!vel.isMoving()) {
+			vel.setX(pos.getX() - speed);
+			vel.setY(pos.getY());
+			vel.setMoving(true);
+		}
 	}
 
 	@Override
 	public void onRight() {
-		vel.setX(1);
-		vel.setY(0);
+		createMovementComponent();
+		if (!vel.isMoving()) {
+			vel.setX(pos.getX() + speed);
+			vel.setY(pos.getY());
+			vel.setMoving(true);
+		}
 	}
 
 	@Override
 	public void onUp() {
-		vel.setX(0);
-		vel.setY(1);
+		createMovementComponent();
+		if (!vel.isMoving()) {
+			vel.setX(pos.getX());
+			vel.setY(pos.getY() + speed);
+			vel.setMoving(true);
+		}
 	}
 
 	@Override
 	public void onDown() {
-		vel.setX(0);
-		vel.setY(-1);
+		createMovementComponent();
+		if (!vel.isMoving()) {
+			vel.setX(pos.getX());
+			vel.setY(pos.getY() - speed);
+			vel.setMoving(true);
+		}
 	}
 
+	public void createMovementComponent() {
+		if (vel == null || entity.getComponent(MovementComponent.class) == null) {
+			vel = Manager.instance.getEngine().createComponent(MovementComponent.class);
+			vel.setMoving(false);
+			entity.add(vel);
+		}
+	}
 }

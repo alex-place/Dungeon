@@ -50,13 +50,9 @@ public class EntityFactory {
 		p.setHeight(1);
 		RenderComponent r = createComponent(RenderComponent.class);
 		r.setRegion(Assets.instance.nakedMan.reg);
-		MovementComponent m = createComponent(MovementComponent.class);
-		m.setX(0);
-		m.setY(0);
-		m.setElapsed(0);
-		m.setLifetime(10);
+		
 
-		return createEntity(p, r, m);
+		return createEntity(p, r);
 	}
 
 	public <T extends Component> T createComponent(Class<T> componentType) {
