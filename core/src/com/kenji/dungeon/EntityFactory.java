@@ -3,10 +3,12 @@ package com.kenji.dungeon;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
-import com.kenji.dungeon.components.MovementComponent;
+import com.kenji.dungeon.components.CameraComponent;
+import com.kenji.dungeon.components.ParentComponent;
 import com.kenji.dungeon.components.ParticleComponent;
 import com.kenji.dungeon.components.PositionComponent;
 import com.kenji.dungeon.components.RenderComponent;
@@ -17,11 +19,10 @@ public class EntityFactory {
 	}
 
 	public static EntityFactory instance = new EntityFactory();
-	
-	
+
 	private ParticleEffectPool fire;
-	
-	public void init(){
+
+	public void init() {
 		ParticleEffect effect = new ParticleEffect();
 		effect.load(Gdx.files.internal("fire.p"), Gdx.files.internal(""));
 		fire = new ParticleEffectPool(effect, 2, 10);
@@ -50,7 +51,6 @@ public class EntityFactory {
 		p.setHeight(1);
 		RenderComponent r = createComponent(RenderComponent.class);
 		r.setRegion(Assets.instance.nakedMan.reg);
-		
 
 		return createEntity(p, r);
 	}
@@ -72,8 +72,18 @@ public class EntityFactory {
 		effect.setPosition(x, y);
 		effect.start();
 		par.setEffect(effect);
-		
+
 		return createEntity(pos, par);
+	}
+
+	public Entity createCamera(Camera camera, Entity parent) {
+		CameraComponent c = createComponent(CameraComponent.class);
+		c.setCamera(camera);
+
+		ParentComponent p = createComponent(ParentComponent.class);
+		p.setParent(parent);
+
+		return createEntity(c,p);
 	}
 
 }

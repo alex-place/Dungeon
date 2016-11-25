@@ -3,6 +3,7 @@ package com.kenji.dungeon.screens;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,6 +18,7 @@ import com.kenji.dungeon.Utility;
 import com.kenji.dungeon.input.MainDungeonInput;
 import com.kenji.dungeon.input.SimpleDirectionGestureDetector;
 import com.kenji.dungeon.input.SimpleDirectionListener;
+import com.kenji.dungeon.systems.CameraFollowSystem;
 import com.kenji.dungeon.systems.MovementSystem;
 import com.kenji.dungeon.systems.ParticleSystem;
 import com.kenji.dungeon.systems.RenderingSystem;
@@ -42,16 +44,22 @@ public class MainDungeonScreen extends BaseScreen {
 		camera.update();
 		tiledMap = (TiledMap) Assets.instance.getAsset(Constants.FIRST_DUNGEON);
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1 / 16f, batch);
-
+		tiledMapRenderer.getBatch().setBlendFunction(GL20.GL_ONE, GL20.GL_ONE);
+		
 		Manager.instance.init();
 		EntityFactory.instance.init();
 		Utility.instance.init(tiledMap);
+		Manager.instance.getEngine().addSystem(new CameraFollowSystem());
 		Manager.instance.getEngine().addSystem(new RenderingSystem(batch));
 		Manager.instance.getEngine().addSystem(new MovementSystem());
 		Manager.instance.getEngine().addSystem(new ParticleSystem(batch));
 
 		Entity nakedMan = EntityFactory.instance.createNakedMan(3, 3);
 		Manager.instance.getEngine().addEntity(nakedMan);
+
+		Entity cameraFollow = EntityFactory.instance.createCamera(camera, nakedMan);
+		Manager.instance.getEngine().addEntity(cameraFollow);
+		
 		Entity fire = EntityFactory.instance.createLight(1.5f, 1.6f);
 		Manager.instance.getEngine().addEntity(fire);
 

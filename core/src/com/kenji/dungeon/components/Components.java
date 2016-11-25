@@ -13,5 +13,5 @@ public class Components {
 	public final ComponentMapper<RenderComponent> render = ComponentMapper.getFor(RenderComponent.class);
 	public final ComponentMapper<MovementComponent> velocity = ComponentMapper.getFor(MovementComponent.class);
 	public final ComponentMapper<ParticleComponent> particle = ComponentMapper.getFor(ParticleComponent.class);
-
+	public final ComponentMapper<CameraComponent> camera = ComponentMapper.getFor(CameraComponent.class);
 }
