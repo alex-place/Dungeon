@@ -13,6 +13,7 @@ import com.kenji.dungeon.Constants;
 import com.kenji.dungeon.EntityFactory;
 import com.kenji.dungeon.Main;
 import com.kenji.dungeon.Manager;
+import com.kenji.dungeon.Utility;
 import com.kenji.dungeon.input.MainDungeonInput;
 import com.kenji.dungeon.input.SimpleDirectionGestureDetector;
 import com.kenji.dungeon.input.SimpleDirectionListener;
@@ -44,13 +45,14 @@ public class MainDungeonScreen extends BaseScreen {
 
 		Manager.instance.init();
 		EntityFactory.instance.init();
+		Utility.instance.init(tiledMap);
 		Manager.instance.getEngine().addSystem(new RenderingSystem(batch));
 		Manager.instance.getEngine().addSystem(new MovementSystem());
 		Manager.instance.getEngine().addSystem(new ParticleSystem(batch));
 
-		Entity nakedMan = EntityFactory.instance.createNakedMan(1, 1);
+		Entity nakedMan = EntityFactory.instance.createNakedMan(3, 3);
 		Manager.instance.getEngine().addEntity(nakedMan);
-		Entity fire = EntityFactory.instance.createLight(2.25f, 0.5f);
+		Entity fire = EntityFactory.instance.createLight(1.5f, 1.6f);
 		Manager.instance.getEngine().addEntity(fire);
 
 		MainDungeonInput input = new MainDungeonInput();
@@ -64,7 +66,6 @@ public class MainDungeonScreen extends BaseScreen {
 	@Override
 	public void render(float delta) {
 		super.render(delta);
-
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 		tiledMapRenderer.setView(camera);

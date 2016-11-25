@@ -7,6 +7,7 @@ public class MovementComponent implements Component {
 
 	private float x, y;
 	private boolean moving;
+	private boolean stopped = false;
 
 	public float getX() {
 		return x;
@@ -23,8 +24,8 @@ public class MovementComponent implements Component {
 	public void setY(float y) {
 		this.y = y;
 	}
-	
-	public void set(Vector2 location){
+
+	public void set(Vector2 location) {
 		setX(location.x);
 		setY(location.y);
 	}
@@ -32,14 +33,24 @@ public class MovementComponent implements Component {
 	public void reset() {
 		x = 0;
 		y = 0;
+		moving = false;
+		stopped = false;
 	}
 
 	public boolean isMoving() {
 		return moving;
 	}
-	
+
 	public void setMoving(boolean moving) {
 		this.moving = moving;
+	}
+
+	public boolean isStopped() {
+		return stopped;
+	}
+
+	public void setStopped(boolean stopped) {
+		this.stopped = stopped;
 	}
 
 }
